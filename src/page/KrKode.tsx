@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Dimensions } from 'react-native';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import { useNavigation } from '@react-navigation/native';
 
 export default function KrKode() {
   const [hasPermission, setHasPermission] = useState<boolean>();
   const [scanned, setScanned] = useState(false);
+  const [dataScanned, setDataSacanned] = useState({});
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -15,7 +19,13 @@ export default function KrKode() {
 
   function handleBarCodeScanned(scanningResult: BarCodeScannerResult) {
     setScanned(true);
-    alert(`QRCODE | ${scanningResult.type} || ${scanningResult.data} `);
+    setDataSacanned(JSON.parse(scanningResult.data));
+
+    navigation.navigate('DetailsKode', dataScanned);
+
+    // console.log(`${scanningResult.data}`);
+    // JSON.parse(scanningResult.data);
+    // console.log(JSON.parse(scanningResult.data));
   }
 
   if (hasPermission === null) {
@@ -39,8 +49,14 @@ export default function KrKode() {
         type="back"
         onBarCodeScanned={handleBarCodeScanned}
         style={{
-          width: Dimensions.get('window').width,
-          height: Dimensions.get('window').height,
+          marginHorizontal: 0,
+          marginLeft: 0,
+          marginStart: 0,
+          paddingHorizontal: 0,
+          paddingLeft: 0,
+          paddingStart: 0,
+          height: '115%',
+          padding: 0,
         }}
       />
 

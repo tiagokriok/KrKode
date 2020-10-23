@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 const { Navigator, Screen } = createStackNavigator();
 
 import KrKode from './page/KrKode';
+import DetailsKode from './page/DetailsKode';
 
 export default function Routes() {
   return (
@@ -17,6 +18,7 @@ export default function Routes() {
         }}
       >
         <Screen name="KrKode" component={KrKode} />
+        <Screen name="DetailsKode" component={DetailsKode} />
       </Navigator>
     </NavigationContainer>
   );
